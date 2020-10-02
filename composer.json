@@ -1,5 +1,5 @@
 {
-    "name": "sam/environment-symfony-tools",
+    "name": "mysam/environment-symfony-tools",
     "description": "Environment tools for Symfony project",
     "type": "library",
     "license": "MIT",
