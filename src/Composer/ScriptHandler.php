@@ -1,6 +1,6 @@
 <?php
 
-namespace SAM\EnvironmentSymfonyTools;
+namespace SAM\EnvironmentSymfonyTools\Composer;
 
 use Sensio\Bundle\DistributionBundle\Composer\ScriptHandler as BaseScriptHandler;
 use Composer\Script\Event;
