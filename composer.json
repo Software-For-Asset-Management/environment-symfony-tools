@@ -1,0 +1,13 @@
+{
+    "name": "sam/environment-symfony-tools",
+    "description": "Environment tools for Symfony project",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Pierrick",
+            "email": "pierrick@mysam.co"
+        }
+    ],
+    "require": {}
+}
