@@ -19,5 +19,8 @@
         "psr-4": {
             "SAM\\EnvironmentSymfonyTools\\Composer": "src/"
         }
+    },
+    "extra": {
+        "class": "SAM\\EnvironmentSymfonyTools\\Composer\\ScriptHandler"
     }
 }
