@@ -1,4 +1,4 @@
-#!/usr/bin/env /bin/sh
+#!/usr/bin/env bash
 ROOT_DIR=$PWD
 
 echo "Welcome in submit feature script"

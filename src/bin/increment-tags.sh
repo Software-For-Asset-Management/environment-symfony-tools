@@ -1,4 +1,4 @@
-#!/usr/bin/env /bin/sh
+#!/usr/bin/env bash
 : ${ENVIRONMENT_SAM_VENDOR_MAJOR_VERSION?"You need to set ENVIRONMENT_SAM_VENDOR_MAJOR_VERSION env variable, for e.g.: ENVIRONMENT_SAM_VENDOR_MAJOR_VERSION=2"}
 ROOT_DIR=$PWD
 
