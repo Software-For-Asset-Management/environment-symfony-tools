@@ -12,12 +12,12 @@
     "require": {},
     "autoload": {
         "psr-4": {
-            "SAM\\EnvironmentSymfonyTools\\Composer": "src/"
+            "SAM\\EnvironmentSymfonyTools\\Composer\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "SAM\\EnvironmentSymfonyTools\\Composer": "src/"
+            "SAM\\EnvironmentSymfonyTools\\Composer\\": "src/"
         }
     },
     "extra": {
