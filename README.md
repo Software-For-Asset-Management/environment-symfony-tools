@@ -4,10 +4,19 @@
 
 `composer require sam/environment-symfony-tools`
 
-and then add into `composer.json` into `symfony-scripts` array:
+Add the following in your root composer.json file:
 
-```
-"SAM\\EnvironmentSymfonyTools\\Composer\\ScriptHandler::install"
+```json
+{
+    "scripts": {
+        "post-install-cmd": [
+            "SAM\\EnvironmentSymfonyTools\\Composer\\ScriptHandler::install"
+        ],
+        "post-update-cmd": [
+            "SAM\\EnvironmentSymfonyTools\\Composer\\ScriptHandler::install"
+        ]
+    }
+}
 ```
 
 ## How it works
