@@ -2,7 +2,7 @@
 
 ## How to install
 
-`composer require `
+`composer require sam/environment-symfony-tools`
 
 ## How it works
 

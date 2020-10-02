@@ -9,5 +9,16 @@
             "email": "pierrick@mysam.co"
         }
     ],
-    "require": {}
+    "require": {},
+    "scripts": {
+        "setup": [
+            "php -r \"copy('vendor/sam/environment-symfony-tools/src/bin/update-composer.js', 'bin/update-composer.js');\""
+        ],
+        "post-install-cmd": [
+            "@setup"
+        ],
+        "post-update-cmd": [
+            "@setup"
+        ]
+    }
 }
