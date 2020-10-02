@@ -2,7 +2,7 @@
 
 ## How to install
 
-`composer require sam/environment-symfony-tools`
+`composer require mysam/environment-symfony-tools`
 
 Add the following in your root composer.json file:
 
