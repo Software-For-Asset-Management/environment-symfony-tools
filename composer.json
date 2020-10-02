@@ -11,14 +11,7 @@
     ],
     "require": {},
     "autoload": {
-        "psr-4": {
-            "SAM\\EnvironmentSymfonyTools\\": "src/"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "SAM\\EnvironmentSymfonyTools\\": "src/"
-        }
+        "psr-4": { "SAM\\EnvironmentSymfonyTools\\": "" }
     },
     "extra": {
         "class": "SAM\\EnvironmentSymfonyTools\\Composer\\ScriptHandler"
