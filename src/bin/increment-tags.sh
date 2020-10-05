@@ -64,7 +64,7 @@ do
                 fi
 
                 date=$(date '+%Y-%m-%d')
-                sed -i "/\[Unreleased\]/s/$/ \n\r## [$NEW_TAG] - $date/" CHANGELOG.md
+                sed -i "/\[Unreleased\]/s/$/\n\n## [$NEW_TAG] - $date/" CHANGELOG.md
                 if [[ `git status --porcelain` ]]; then
                     git commit -am "Tagging $ENVIRONMENT_SAM_VENDOR_MAJOR_VERSION.x with $NEW_TAG"
                     echo "Tagging $ENVIRONMENT_SAM_VENDOR_MAJOR_VERSION.x with $NEW_TAG"
@@ -108,7 +108,7 @@ echo "Updating composer.lock and composer.json with last tags for SAM bundles:"
 echo ""
 
 if hash remake 2>/dev/null; then
-    remake -- exec php-fpm 'node bin/update-composer.js'
+    remake -- exec-env php-fpm "node bin/update-composer.js"
 else
-    make -- exec php-fpm 'node bin/update-composer.js'
+    make -- exec-env php-fpm "node bin/update-composer.js"
 fi
