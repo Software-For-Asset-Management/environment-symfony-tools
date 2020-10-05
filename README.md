@@ -1,8 +1,24 @@
 # environment-symfony-tools
 
-## How to install
+## Symfony 4.x
 
-`composer require mysam/environment-symfony-tools`
+`composer require mysam/environment-symfony-tools:^2.0`
+
+Add the following in your root composer.json file:
+
+```json
+{
+    "auto-scripts": {
+        "sam:bin:install": "symfony-cmd"
+    },
+}
+```
+
+## Symfony 3.x
+
+### How to install
+
+`composer require mysam/environment-symfony-tools:^1.0`
 
 Add the following in your root composer.json file:
 

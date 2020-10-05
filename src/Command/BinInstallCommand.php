@@ -23,8 +23,7 @@ class BinInstallCommand extends Command
      */
     protected function configure()
     {
-        $this
-            ->setDescription('Installs binaries under the bin directory');
+        $this->setDescription('Installs binaries under the bin directory');
     }
 
     /**
@@ -37,7 +36,7 @@ class BinInstallCommand extends Command
         $io = new SymfonyStyle($input, $output);
         $io->newLine();
 
-        $binDir = __DIR__.'/../../../../bin/';
+        $binDir = __DIR__.'/../../../../../bin';
 
         $fs->copy(__DIR__.'/../bin/increment-tags.sh', $binDir.'/increment-tags.sh', true);
         $fs->copy(__DIR__.'/../bin/pull-checkout.sh', $binDir.'/pull-checkout.sh', true);
