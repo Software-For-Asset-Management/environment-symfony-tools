@@ -59,9 +59,9 @@ if [[ -z "$CONFIRM_CONTINUE" ]]; then
 
     echo "Updating composer.json and composer.lock..."
     if hash remake 2>/dev/null; then
-        remake -- exec php-fpm 'node bin/update-composer.js commit'
+        remake -- exec-env php-fpm 'node bin/update-composer.js commit'
     else
-        make -- exec php-fpm 'node bin/update-composer.js commit'
+        make -- exec-env php-fpm 'node bin/update-composer.js commit'
     fi
 
     echo ""
