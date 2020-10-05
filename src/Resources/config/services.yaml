@@ -1,0 +1,10 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  sam.console.command.bin_install:
+    class: SAM\EnvironmentSymfonyTools\Command\BinInstallCommand
+    tags:
+      - { name: console.command, command: 'sam:bin:install' }
