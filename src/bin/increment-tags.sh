@@ -39,12 +39,12 @@ do
                 echo ""
                 echo "CHANGELOG snippet"
                 echo "---------------"
-                sed -n '/\[Unreleased\]/,/## \[2/p' CHANGELOG.md
+                sed -n '/\[Unreleased\]/,/## \[/p' CHANGELOG.md
                 echo "---------------"
                 echo ""
 
                 # Found if it's fix or new feature
-                sedOutput=$(sed -n '/\[Unreleased\]/,/## \[2/p' CHANGELOG.md)
+                sedOutput=$(sed -n '/\[Unreleased\]/,/## \[/p' CHANGELOG.md)
                 if [[ $sedOutput =~ "### Added" ]]
                 then
                     echo "We found that the release contains new features"
