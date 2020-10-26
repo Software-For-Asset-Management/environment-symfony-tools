@@ -17,6 +17,10 @@ if [[ -z "$CONFIRM_CONTINUE" ]]; then
         if [[ $REMOTE_URL == *"my-sam/core/"* ]]; then
             # Check if we have pending changes
             if ! git diff-index --quiet HEAD --; then
+                git checkout --track origin/$ENVIRONMENT_SAM_VENDOR_MAJOR_VERSION.x --quiet
+                git checkout $ENVIRONMENT_SAM_VENDOR_MAJOR_VERSION.x --quiet
+                git pull --quiet
+
                 git status
                 echo ""
                 echo -e "\033[32mThere are pending changes to push in \"$dir\" ! What is your commit message?\033[0m"
