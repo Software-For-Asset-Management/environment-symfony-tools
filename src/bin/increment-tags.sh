@@ -10,6 +10,7 @@ do
 
     REMOTE_URL=`git remote -v`
     if [[ $REMOTE_URL == *"my-sam/core/"* ]]; then
+        git update-index --refresh
         if git diff-index --quiet HEAD --; then
             echo ""
             echo "Checking $dir"
