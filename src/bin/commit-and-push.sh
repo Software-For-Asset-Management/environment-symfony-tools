@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 ROOT_DIR=$PWD
+CHANGELOG_MODE=false
 key="$1"
 case $key in
     -h|--help)
@@ -61,7 +62,7 @@ if [[ -z "$CONFIRM_CONTINUE" ]]; then
                 if [ -z "$COMMIT_MESSAGE" ] && [ -n "$OLD_COMMIT_MESSAGE" ]; then
                   COMMIT_MESSAGE=$OLD_COMMIT_MESSAGE
                 fi
-                if [ -z "$OLD_COMMIT_MESSAGE"]; then
+                if [ -z "$OLD_COMMIT_MESSAGE" ]; then
                   OLD_COMMIT_MESSAGE=$COMMIT_MESSAGE
                 fi
                 echo -e "\033[33mOK, lets commit your message: '$COMMIT_MESSAGE' and then push to origin\033[0m"
