@@ -5,6 +5,7 @@ namespace SAM\EnvironmentSymfonyTools\Composer;
 use Sensio\Bundle\DistributionBundle\Composer\ScriptHandler as BaseScriptHandler;
 use Composer\Script\Event;
 use Symfony\Component\Filesystem\Filesystem;
+use SAM\EnvironmentSymfonyTools\Installer\Installer;
 
 class ScriptHandler extends BaseScriptHandler
 {

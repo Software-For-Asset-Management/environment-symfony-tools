@@ -2,7 +2,7 @@
 
 namespace SAM\EnvironmentSymfonyTools\Command;
 
-use SAM\EnvironmentSymfonyTools\Composer\Installer;
+use SAM\EnvironmentSymfonyTools\Installer\Installer;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Exception\InvalidArgumentException;
 use Symfony\Component\Console\Input\InputArgument;

@@ -1,6 +1,6 @@
 <?php
 
-namespace SAM\EnvironmentSymfonyTools\Composer;
+namespace SAM\EnvironmentSymfonyTools\Installer;
 
 use Symfony\Component\Filesystem\Filesystem;
 
@@ -13,7 +13,7 @@ class Installer
     {
         $fs = new Filesystem();
         $samDir = $binDir.'/sam/';
-        $gitlabCiDir = $binDir.'/../.gitlab-ci/';
+        $gitlabCiDir = $binDir.'/../.gitlab-ci/sam/';
 
         if (!$fs->exists($samDir)) {
             $fs->mkdir($samDir);
