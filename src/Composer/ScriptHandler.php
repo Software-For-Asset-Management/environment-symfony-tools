@@ -15,19 +15,8 @@ class ScriptHandler extends BaseScriptHandler
      */
     public static function install($event)
     {
-        $options = static::getOptions($event);
-        $fs = new Filesystem();
+        $binDir = static::getOptions($event)['symfony-bin-dir'];
 
-        $binDir = $options['symfony-bin-dir'];
-
-        $fs->copy(__DIR__.'/../bin/increment-tags.sh', $binDir.'/increment-tags.sh', true);
-        $fs->copy(__DIR__.'/../bin/pull-checkout.sh', $binDir.'/pull-checkout.sh', true);
-        $fs->copy(__DIR__.'/../bin/submit-feature.sh', $binDir.'/submit-feature.sh', true);
-        $fs->copy(__DIR__.'/../bin/update-composer.js', $binDir.'/update-composer.js', true);
-
-        $fs->chmod($binDir.'/increment-tags.sh', 0755);
-        $fs->chmod($binDir.'/pull-checkout.sh', 0755);
-        $fs->chmod($binDir.'/submit-feature.sh', 0755);
-        $fs->chmod($binDir.'/update-composer.js', 0755);
+        Installer::install($binDir);
     }
 }
