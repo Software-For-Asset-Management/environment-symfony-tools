@@ -109,7 +109,7 @@ echo "Updating composer.lock and composer.json with last tags for SAM bundles:"
 echo ""
 
 if hash remake 2>/dev/null; then
-    remake -- exec-env php-fpm "node bin/UpdateSamBundles.js"
+    remake -- exec-env php-fpm "node bin/sam/UpdateSamBundles.js"
 else
-    make -- exec-env php-fpm "node bin/UpdateSamBundles.js"
+    make -- exec-env php-fpm "node bin/sam/UpdateSamBundles.js"
 fi
