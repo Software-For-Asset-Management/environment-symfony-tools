@@ -30,12 +30,13 @@ def get_update_type():
 
 def get_next_version(updateType):
     try:
-        git("checkout", "master")
         stream = os.popen("git ls-remote --tags | grep -o 'refs/tags/[0-9]*\.[0-9]*\.[0-9]*' | sort -rV | head -1 | grep -o '[^\/]*$'")
         version = stream.read().strip()
     except subprocess.CalledProcessError:
         # Default to version 1.0.0 if no tags are available
         version = "1.0.0"
+
+    print('Current version: ' + version)
 
     if updateType == "minor":
         return semver.bump_minor(version)
@@ -53,7 +54,7 @@ def create_merge_request():
 
     updateType = get_update_type()
     nextVersion = get_next_version(updateType)
-    print(nextVersion)
+    print('New version: ' + nextVersion)
 
     rotate_changelog(nextVersion)
 
@@ -76,7 +77,6 @@ def create_merge_request():
     return nextVersion
 
 def rotate_changelog(version):
-    git("checkout", "develop")
     Path('.gitlab-ci/releases').mkdir(parents=True, exist_ok=True)
     shutil.move('.gitlab-ci/changelog.json', '.gitlab-ci/releases/changelog-' + version + '.json')
     git('add', '.gitlab-ci/releases/changelog-' + version + '.json')
@@ -92,7 +92,6 @@ def main():
     branchName = git("rev-parse", "--abbrev-ref", "HEAD").decode().strip()
     if branchName == "develop":
         create_merge_request()
-        git("checkout", "develop")
     else:
         print("Please checkout develop branch")
 
