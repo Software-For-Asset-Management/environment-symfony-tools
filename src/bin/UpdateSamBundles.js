@@ -4,6 +4,7 @@ const fs = require('fs');
 const exec = require('child_process').exec;
 const crypto = require('crypto');
 const changelogPath = './.gitlab-ci/changelog.json';
+const samBundlesLockPath = './.gitlab-ci/sam-bundles.lock';
 
 if (undefined === process.env.ENVIRONMENT_SAM_VENDOR_MAJOR_VERSION) {
     console.error('You need to set ENVIRONMENT_SAM_VENDOR_MAJOR_VERSION env variable, for e.g.: ENVIRONMENT_SAM_VENDOR_MAJOR_VERSION=2')
@@ -12,12 +13,12 @@ if (undefined === process.env.ENVIRONMENT_SAM_VENDOR_MAJOR_VERSION) {
 
 let composerLock = JSON.parse(fs.readFileSync('composer.lock'));
 let composer = JSON.parse(fs.readFileSync('composer.json'));
-let samBundlesLockPath = './.gitlab-ci/sam-bundles.lock';
 if (!fs.existsSync(samBundlesLockPath)) {
     fs.writeFileSync(samBundlesLockPath, JSON.stringify({
         packages: {}
     }, null, 4));
 }
+
 let samBundlesLock = JSON.parse(fs.readFileSync(samBundlesLockPath));
 if (!fs.existsSync(changelogPath)) {
     fs.writeFileSync(changelogPath, '{}');
@@ -76,20 +77,20 @@ var checkPackage = function (pkg) {
                 } else {
                     exec('git rev-parse --short HEAD', {cwd: './vendor/' + pkg.name}, function (err, stdout, stderr) {
                         if (!err && !stderr) {
-                            var shortCommitHash = stdout.toString().trim();
+                            let shortCommitHash = stdout.toString().trim();
                             exec('git rev-parse HEAD', {cwd: './vendor/' + pkg.name}, function (err, stdout, stderr) {
                                 if (!err && !stderr) {
-                                    var commitHash = stdout.toString().trim();
+                                    let commitHash = stdout.toString().trim();
                                     exec('git rev-parse --abbrev-ref HEAD', {cwd: './vendor/' + pkg.name}, function (err, stdout, stderr) {
                                         if (!err && !stderr) {
-                                            var branchName = stdout.toString().trim();
-                                            var process = true;
+                                            let branchName = stdout.toString().trim();
+                                            let process = true;
                                             if (branchName === 'HEAD') {
                                                 process = false;
                                             }
 
                                             if (process) {
-                                                var versionNumber = 'dev-master#' + commitHash;
+                                                let versionNumber = 'dev-master#' + commitHash;
                                                 let oldCommit = pkg.source.reference;
 
                                                 pkg.source.reference = commitHash;
@@ -127,7 +128,7 @@ var checkPackage = function (pkg) {
     });
 };
 
-var loadChangelog = function (pkg, newVersion) {
+let loadChangelog = function (pkg, newVersion) {
     if (pkg.name in samBundlesLock.packages && newVersion !== samBundlesLock.packages[pkg.name].version) {
         let content = fs.readFileSync('./vendor/' + pkg.name + '/CHANGELOG.md');
         let contentOutput = JSON.parse(fs.readFileSync(changelogPath));
@@ -149,7 +150,6 @@ var loadChangelog = function (pkg, newVersion) {
                     if (!contentOutput[key]) {
                         contentOutput[key] = {};
                     }
-
                     if (!contentOutput[key].hasOwnProperty(line)) {
                         contentOutput[key][line] = line;
                     }
@@ -171,7 +171,6 @@ var loadChangelog = function (pkg, newVersion) {
 console.log('Starting to read composer.lock...\r\n');
 
 let actions = composerLock.packages.map(checkPackage);
-
 Promise.all(actions).then(function () {
     let content = JSON.parse(JSON.stringify(composer));
     let relevantKeys = [
@@ -200,33 +199,36 @@ Promise.all(actions).then(function () {
     }
 
     relevantContent = ksort(relevantContent);
-
-    let newContentHash = crypto.createHash('md5').update(JSON.stringify(relevantContent).replace(/\//g, "\\\/")).digest("hex");
-    composerLock['content-hash'] = newContentHash;
+    composerLock['content-hash'] = crypto
+        .createHash('md5')
+        .update(JSON.stringify(relevantContent)
+            .replace(/\//g, "\\\/"))
+        .digest("hex");
 
     // Write back composer.lock
     let data = JSON.stringify(composerLock, null, 4);
     fs.writeFileSync('composer.lock', data);
+
     // Write back composer.json
     data = JSON.stringify(composer, null, 4);
     fs.writeFileSync('composer.json', data);
+
     // Write back sam-bundles.lock
     data = JSON.stringify(samBundlesLock, null, 4);
-    fs.writeFileSync('./.gitlab-ci/sam-bundles.lock', data);
-    console.log('\\o/ \\o/ \\o/');
-    console.log('\r\ncomposer.lock and composer.json updated\r\n');
+    fs.writeFileSync(samBundlesLockPath, data);
+
+    console.log(['', '\\o/ \\o/ \\o/', '\r\ncomposer.lock and composer.json updated with last tags of SAM bundles\r\n']);
 }, function (err) {
     console.error(err);
 });
 
 function ksort (obj) {
-  var keys = Object.keys(obj).sort()
-    , sortedObj = {};
+    let keys = Object.keys(obj).sort()
+        , sortedObj = {};
 
-  for (var i in keys) {
-    sortedObj[keys[i]] = obj[keys[i]];
-  }
+    for (let i in keys) {
+        sortedObj[keys[i]] = obj[keys[i]];
+    }
 
-  return sortedObj;
+    return sortedObj;
 }
-
