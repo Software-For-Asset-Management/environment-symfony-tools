@@ -34,10 +34,12 @@ class Installer
         $fs->copy(__DIR__.'/../bin/PublishSamBundles.sh', $samDir.'PublishSamBundles.sh', true);
         $fs->copy(__DIR__.'/../bin/PullSamBundles.sh', $samDir.'PullSamBundles.sh', true);
         $fs->copy(__DIR__.'/../bin/SubmitFeature.sh', $samDir.'SubmitFeature.sh', true);
+        $fs->copy(__DIR__.'/../bin/CommitSamBundles.sh', $samDir.'CommitSamBundles.sh', true);
         $fs->copy(__DIR__.'/../bin/UpdateSamBundles.js', $samDir.'UpdateSamBundles.js', true);
         $fs->chmod($samDir.'PublishSamBundles.sh', 0755);
         $fs->chmod($samDir.'PullSamBundles.sh', 0755);
         $fs->chmod($samDir.'SubmitFeature.sh', 0755);
+        $fs->chmod($samDir.'CommitSamBundles.sh', 0755);
         $fs->chmod($samDir.'UpdateSamBundles.js', 0755);
 
         $fs->copy(__DIR__.'/../bin/gitlabci/DeployProduction.py', $gitlabCiDir.'DeployProduction.py', true);
