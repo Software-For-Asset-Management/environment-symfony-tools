@@ -5,7 +5,11 @@ import gitlab
 from pathlib import Path
 from dotenv import load_dotenv
 load_dotenv()
-load_dotenv(dotenv_path=Path('.') / '.env.dev.local')
+load_dotenv(dotenv_path=Path('.') / '.env')
+try:
+    load_dotenv(dotenv_path=Path('.') / '.env.dev.local')
+except IOError:
+    print("No .env.dev.local, rely only on .env")
 
 def verify_env_var_presence(name):
     if name not in os.environ:
