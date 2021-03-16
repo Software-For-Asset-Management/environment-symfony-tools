@@ -26,5 +26,5 @@ gl.auth()
 for group in gl.groups.list():
     if group.name == 'Projects':
         for project in group.projects.list():
-            if project.name == 'RAISE Invest':
+            if project.name == os.environ['CI_GITLAB_PROJECT_NAME']:
                 print(project)
