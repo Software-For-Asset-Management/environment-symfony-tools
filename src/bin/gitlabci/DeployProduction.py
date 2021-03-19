@@ -32,6 +32,9 @@ def get_next_version(updateType):
     try:
         stream = os.popen("git ls-remote --tags | grep -o 'refs/tags/[0-9]*\.[0-9]*\.[0-9]*' | sort -rV | head -1 | grep -o '[^\/]*$'")
         version = stream.read().strip()
+        if version == "":
+            print('No current version, setting 1.0.0 as new version.')
+            return "1.0.0"
     except subprocess.CalledProcessError:
         # Default to version 1.0.0 if no tags are available
         version = "1.0.0"
