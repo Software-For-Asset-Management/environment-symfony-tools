@@ -90,7 +90,11 @@ def main():
         # Default to version 1.0.0 if no tags are available
         version = "1.0.0"
     else:
-        version = bump(latestShort)
+        if latestShort == "":
+            print('No current version, setting 1.0.0 as new version.')
+            version = "1.0.0"
+        else:
+            version = bump(latestShort)
 
     tag_repo(version)
     add_release(version)
