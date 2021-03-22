@@ -83,7 +83,8 @@ def main():
     [verify_env_var_presence(e) for e in env_list]
 
     try:
-        git("fetch", "--unshallow")
+        git("fetch")
+        git("fetch", "--tags")
         latestShort = git("describe", "--tags", "--match", "*[0-9].*[0-9].*[0-9]", "--abbrev=0").decode().strip()
         print("Current version is: " + latestShort)
     except subprocess.CalledProcessError:
