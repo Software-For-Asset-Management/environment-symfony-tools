@@ -83,10 +83,12 @@ def main():
     [verify_env_var_presence(e) for e in env_list]
 
     try:
-        git("fetch")
-        git("fetch", "--tags")
-        latestShort = git("describe", "--tags", "--match", "*[0-9].*[0-9].*[0-9]", "--abbrev=0").decode().strip()
+        stream = os.popen("git ls-remote --tags | grep -o 'refs/tags/[0-9]*\.[0-9]*\.[0-9]*' | sort -rV | head -1 | grep -o '[^\/]*$'")
+        latestShort = stream.read().strip()
         print("Current version is: " + latestShort)
+        if latestShort == "":
+            print('No current version, setting 1.0.0 as new version.')
+            version = "1.0.0"
     except subprocess.CalledProcessError:
         # Default to version 1.0.0 if no tags are available
         version = "1.0.0"
